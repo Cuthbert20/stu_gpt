@@ -5,7 +5,10 @@ const App = () => {
     <div className="app">
           <section className="side-bar">
         <button>+ New Chat</button>
-        <ul className="history"></ul>
+        <ul className="history">
+          <li>foo</li>
+          <li>bar</li>
+        </ul>
         <nav>
           <p>Built by Stu</p>
         </nav>
