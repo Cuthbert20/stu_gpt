@@ -81,6 +81,7 @@ nav {
 }
 
 input {
+  font-size: 20px;
   width: 100%;
   border: none;
   border-radius: 5px;
@@ -96,4 +97,10 @@ input {
 input:focus {
   outline: none;
   cursor: pointer;
+}
+
+#submit {
+  position: absolute;
+  bottom: 15px;
+  right: 0;
 }
