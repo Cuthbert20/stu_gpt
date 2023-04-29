@@ -96,10 +96,10 @@ input {
 
 input:focus {
   outline: none;
-  cursor: pointer;
 }
 
 #submit {
+  cursor: pointer;
   position: absolute;
   bottom: 15px;
   right: 0;
