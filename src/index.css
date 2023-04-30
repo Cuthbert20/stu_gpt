@@ -107,5 +107,26 @@ input:focus {
 
 .feed {
   list-style-type: none;
+  overflow: scroll;
+  width: 100%;
+  padding: 0;
+}
+
+.feed li {
+  display: flex;
+  background-color: #3c3f3c;
+  width: 100%;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.feed p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  text-align: left;
+}
+
+.feed .role {
+  min-width: 80px;
 }
 

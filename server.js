@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 const API_KEY = process.env.API_KEY;
-
+//Max tokens is really low for testing. Will push up to 516
 app.post('/completion', async (req, res) => {
     const options = {
         method: "POST",

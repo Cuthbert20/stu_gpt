@@ -60,8 +60,6 @@ const App = () => {
     }
   }, [message, currentTitle]);
 
-  // console.log(previousChats);
-
   const currentChats = previousChats.filter(previousChat => previousChat.title === currentTitle);
   //Slick way of creating any array of uniqueTitles. Breakdown:
   /**
@@ -70,8 +68,6 @@ const App = () => {
    * 3. Then we use Array.from to convert the set to an array.
    */
   const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
-  const foo = previousChats.map(previousChat => previousChat.title);
-  console.log(foo, "foo");
 
   
   return (
@@ -79,7 +75,6 @@ const App = () => {
           <section className="side-bar">
         <button onClick={createNewChat} className="chat-button">+ New Chat</button>
         <ul className="history">
-          {/* {console.log("uniqueTitles", uniqueTitles)} */}
           {uniqueTitles?.map((title, key) => <li key={key} onClick={() => handleClick(title)} >{title}</li>)}
         </ul>
         <nav>
