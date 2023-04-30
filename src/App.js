@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 
 const App = () => {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   const [message, setMessage] = useState(null);
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
 
   const createNewChat = () => {
     setCurrentTitle(null);
-    setValue(null);
+    setValue('');
     setMessage(null);
   }
 
@@ -26,7 +26,6 @@ const App = () => {
     try {
       const response = await fetch('http://localhost:8000/completion', options);
       const data = await response.json();
-      console.log(data);
       //message is an obj role & content.
       setMessage(data.choices[0].message);
     } catch(err) {
@@ -34,14 +33,19 @@ const App = () => {
     }
   }
 
+  const handleClick = (uniqueTitle) => {
+    setMessage(null);
+    setValue('')
+    setCurrentTitle(uniqueTitle);
+  }
+
   useEffect(() => {
-    console.log(currentTitle, value, message);
     if (!currentTitle && value && message) {
       setCurrentTitle(value);
     }
     if (currentTitle && value && message) {
-      setPreviousChats((previousChats) => [
-        ...previousChats,
+      setPreviousChats(previousChats => (
+        [...previousChats,
         {
           title: currentTitle,
           role: "user",
@@ -52,11 +56,11 @@ const App = () => {
           role: message.role,
           content: message.content,
         },
-      ]);
+      ]));
     }
   }, [message, currentTitle]);
 
-  console.log(previousChats);
+  // console.log(previousChats);
 
   const currentChats = previousChats.filter(previousChat => previousChat.title === currentTitle);
   //Slick way of creating any array of uniqueTitles. Breakdown:
@@ -66,6 +70,8 @@ const App = () => {
    * 3. Then we use Array.from to convert the set to an array.
    */
   const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
+  const foo = previousChats.map(previousChat => previousChat.title);
+  console.log(foo, "foo");
 
   
   return (
@@ -73,7 +79,8 @@ const App = () => {
           <section className="side-bar">
         <button onClick={createNewChat} className="chat-button">+ New Chat</button>
         <ul className="history">
-          <li className="active">{currentTitle}</li>
+          {/* {console.log("uniqueTitles", uniqueTitles)} */}
+          {uniqueTitles?.map((title, key) => <li key={key} onClick={() => handleClick(title)} >{title}</li>)}
         </ul>
         <nav>
           <p>Built by Stu</p>
@@ -82,12 +89,12 @@ const App = () => {
     <section className="main">
         {!currentTitle && <h1>STU's GPT</h1>}
         <ul className="feed">
-          {currentChats.map((chatMessage, index) => {
+          {currentChats.map((chatMessage, index) => (
             <li key={index}>
               <p className="role">{chatMessage.role}</p>
-              <p>{chatMessage.message}</p>
+              <p>{chatMessage.content}</p>
             </li>
-          })}
+          ))}
         </ul>
         <div className="bottom-section">
           <div className="input-container">

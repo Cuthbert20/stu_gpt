@@ -104,3 +104,8 @@ input:focus {
   bottom: 15px;
   right: 0;
 }
+
+.feed {
+  list-style-type: none;
+}
+
