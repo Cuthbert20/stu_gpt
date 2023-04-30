@@ -59,13 +59,21 @@ const App = () => {
   console.log(previousChats);
 
   const currentChats = previousChats.filter(previousChat => previousChat.title === currentTitle);
+  //Slick way of creating any array of uniqueTitles. Breakdown:
+  /**
+   * 1. we map over previousChats so we just ahve the title.
+   * 2. Create a new Set which of course sets are colleciton of unique values. (bye bye duplicates)
+   * 3. Then we use Array.from to convert the set to an array.
+   */
+  const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
 
+  
   return (
     <div className="app">
           <section className="side-bar">
         <button onClick={createNewChat} className="chat-button">+ New Chat</button>
         <ul className="history">
-          <li className="active">Chat 1</li>
+          <li className="active">{currentTitle}</li>
         </ul>
         <nav>
           <p>Built by Stu</p>
@@ -74,7 +82,12 @@ const App = () => {
     <section className="main">
         {!currentTitle && <h1>STU's GPT</h1>}
         <ul className="feed">
-
+          {currentChats.map((chatMessage, index) => {
+            <li key={index}>
+              <p className="role">{chatMessage.role}</p>
+              <p>{chatMessage.message}</p>
+            </li>
+          })}
         </ul>
         <div className="bottom-section">
           <div className="input-container">
